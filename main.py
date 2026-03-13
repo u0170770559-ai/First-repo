@@ -1,42 +1,78 @@
-#!/usr/bin/env python3
-"""Alarm Clock - Main entry point.
-
-Provides both CLI and GUI interfaces for managing alarms.
-Usage:
-    python main.py --cli [command]    # Run CLI mode
-    python main.py --gui              # Run GUI mode (default)
-    python main.py -h                 # Show help
 """
-import argparse
+Alarm Clock Application
+
+A tkinter-based alarm clock application for Windows with persistent storage.
+
+Usage:
+    python main.py
+
+Author:
+    Ridges bot
+
+License:
+    MIT License
+"""
+
+import tkinter as tk
+from tkinter import ttk, messagebox
+import winsound
+import json
+import threading
+import time
+import os
+from datetime import datetime, timedelta
+from typing import List, Dict, Optional
 import sys
 
 
-def main() -> int:
-    """Main entry point."""
-    parser = argparse.ArgumentParser(
-        description="Alarm Clock - Cross-platform alarm clock with CLI and GUI"
-    )
-    parser.add_argument(
-        '--cli', action='store_true',
-        help='Run in CLI mode instead of GUI'
-    )
-    parser.add_argument(
-        'cli_args', nargs='*',
-        help='Arguments to pass to CLI (when using --cli)'
-    )
+class Alarm:
+    """Represents a single alarm with time, description, and state.
     
-    args = parser.parse_args()
+    Attributes:
+        hour: Hour of the alarm (0-23)
+        minute: Minute of the alarm (0-59)
+        second: Second of the alarm (0-59)
+        description: Description of the alarm
+        enabled: Whether the alarm is enabled
+        repeat: Whether the alarm repeats
     
-    if args.cli:
-        # Import and run CLI
-        from cli import main as cli_main
-        return cli_main(args.cli_args if args.cli_args else None)
-    else:
-        # Import and run GUI
-        from gui import main as gui_main
-        gui_main()
-        return 0
-
-
-if __name__ == '__main__':
-    sys.exit(main())
+    Example:
+        >>> alarm = Alarm(7, 30, 0, "Morning Alarm", True, True)
+    """
+    
+    def __init__(self, hour: int, minute: int, second: int = 0, description: str = "",
+                 enabled: bool = True, repeat: bool = False):
+        self.hour = hour
+        self.minute = minute
+        self.second = second
+        self.description = description
+        self.enabled = enabled
+        self.repeat = repeat
+        self.next_fire_time: Optional[datetime] = None
+        self.fired = False
+    
+    def to_dict(self) -> Dict:
+        """Convert alarm to dictionary for JSON serialization.
+        
+        Returns:
+            Dictionary representation of the alarm.
+        
+    @classmethod
+    def from_dict(cls, data: Dict) -> 'Alarm':
+        """Create alarm from dictionary.
+        
+        Args:
+            data: Dictionary representation of the alarm.
+        
+        Returns:
+    
+    class AlarmManager:
+        """Manages a collection of alarms with persistence.
+        
+    class AlarmClockApp:
+        """Main application class for the alarm clock GUI.
+        
+    if __name__ == "__main__":
+        root = tk.Tk()
+        app = AlarmClockApp(root)
+    root.mainloop()

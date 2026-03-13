@@ -28,11 +28,22 @@ cd <repository-directory>
 
 ## Usage
 
+### Double-Click Execution (No Python Commands Required!)
+
+Simply double-click one of the launcher files to run the application:
+
+- **Windows**: Double-click `run.bat` or `run.pyw`
+  - `run.pyw` - Runs without showing a console window (cleanest experience)
+  - `run.bat` - Shows a brief console window while starting
+- **Linux/macOS**: Double-click `run.sh` (may need to set executable permission first)
+
 ### GUI Mode (Default)
 
 Run the application without any arguments to start the GUI:
 
 ```bash
+python gui.py
+# or
 python main.py
 # or
 python main.py --gui
@@ -78,6 +89,9 @@ python main.py --cli --help
 ├── gui.py            # Tkinter graphical interface
 ├── alarm_store.py    # JSON persistence for alarms
 ├── scheduler.py      # Alarm monitoring and triggering
+├── run.bat           # Windows launcher (double-click to run)
+├── run.pyw           # Windows no-console launcher
+├── run.sh            # Linux/macOS launcher
 ├── tests/
 │   └── test_alarm.py # Unit tests
 └── README.md         # This file
